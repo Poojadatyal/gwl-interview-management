@@ -25,10 +25,13 @@ border-radius: 20px;
 align-self: center;
 padding: 20px;
 }
+
 body{
   background: url(/Assets/Images/background.jpg);
   background-repeat: no-repeat;
   background-size: cover;
+
+
 }
 .text{
   text-align: center;

@@ -4,12 +4,14 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 class Login extends React.Component{
   state={
     Username: "",
     password: "",
+
   }
 
   handleChangename=(e)=>{
@@ -27,12 +29,21 @@ class Login extends React.Component{
 
   onClickValidate=()=>{
     const {Username} =this.state;
+    const {history}=this.props;
     const {password} = this.state;
-     Username =="GWL" && password == "123" ? window.alert("Login Successful") : window.alert("Authentication Error");
+     // Username =="GWL" && password == "123" ?this.props.history.push('/Menu'): window.alert("Authentication Error");
+     if(Username=="GWL" && password=="123"){
+         history.push('/Menu');
+     }
+     else{
+       alert("Authentication Failed !Try Again")
+     }
   };
 
   render(){
+
     return(
+
 
      <Grid container >
                       <Grid container>
@@ -81,8 +92,8 @@ class Login extends React.Component{
 
 
                               <Grid container>
-                              <Button onClick = {this.onClickValidate}>
-                              Submit
+                         <Button variant="contained" color="primary" onClick ={this.onClickValidate}>
+                                  SUBMIT
                              </Button>
                             </Grid>
 
@@ -91,6 +102,7 @@ class Login extends React.Component{
                            </Paper>
                       </Grid>
      </Grid>
+
 
 
     );
