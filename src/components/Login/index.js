@@ -22,7 +22,6 @@ class Login extends React.Component{
   };
   handleChangepassword=(e)=>{
     this.setState({
-
             password : e.target.value
     })
   };

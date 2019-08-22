@@ -6,7 +6,8 @@ import './App.css';
 
 //import Login from './Components/Login';
 
-import Registeration_Frm from './Components/Registeration_Frm';
+import Login from './components/Login';
+import Menu from './components/Menu';
 function App() {
   return (
   /*  <Router>
@@ -16,8 +17,10 @@ function App() {
    <Route exact path="/"  component={Login} />
    <Route exact path="/Menu"  component={Menu} />
    </Router>*/
+ <div>
+   <Menu/>
 
-   <Registeration_Frm/>
+   </div>
   );
 }
 
