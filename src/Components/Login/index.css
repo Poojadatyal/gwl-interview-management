@@ -1,0 +1,38 @@
+.login_header{
+  color: #607d8b;
+  font-family: LucidaBright,serif;
+  padding-right: 60px;
+}
+.login_img{
+  padding-left: 10%;
+  width: 50%;
+  height: 80%;
+}
+
+.login_hlp{
+  vertical-align: middle;
+  align-items:center;
+}
+
+.p{
+
+  margin-top: 100px;
+  background-color:white;
+  width: 20%;
+  height: 80%;
+  margin-left: 600px;
+border-radius: 20px;
+align-self: center;
+padding: 20px;
+}
+
+body{
+  background: url(/Assets/Images/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+
+}
+.text{
+  text-align: center;
+}
