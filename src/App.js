@@ -1,15 +1,15 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-//import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-//import Menu from './Components/Menu';
-
-//import Login from './Components/Login';
-
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+/*import Login from './Components/Login';
+import Menu from './Components/Menu';*/
 import Registeration_Frm from './Components/Registeration_Frm';
+
+
 function App() {
   return (
-  /*  <Router>
+  /* <Router>
     <div>
 
    </div>
@@ -17,7 +17,8 @@ function App() {
    <Route exact path="/Menu"  component={Menu} />
    </Router>*/
 
-   <Registeration_Frm/>
+<Registeration_Frm/>
+
   );
 }
 
