@@ -1,26 +1,20 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-//import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-//import Menu from './Components/Menu';
-
-//import Login from './Components/Login';
-
-import Login from './components/Login';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Menu from './components/Menu';
+import Login from './components/Login';
+import RegisterationForm from './components/Menu/RegisterationForm';
+
 function App() {
   return (
-  /*  <Router>
-    <div>
-
-   </div>
+<div>
+ <Router>
    <Route exact path="/"  component={Login} />
-   <Route exact path="/Menu"  component={Menu} />
-   </Router>*/
- <div>
-   <Menu/>
-
-   </div>
+   <Route  path="/Menu"  component={Menu} />
+   <Route exact path = "/Menu/RegisterationForm" component = {RegisterationForm} />
+   </Router>
+</div>
   );
 }
 

@@ -22,7 +22,9 @@ import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-
+import RegisterationForm from '../Menu/RegisterationForm';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {Grid,Button} from '@material-ui/core';
 const drawerWidth = 220;
 
 const styles = theme => ({
@@ -106,6 +108,10 @@ class Menu extends React.Component {
     this.setState({
       subListOpen : !this.state.subListOpen
     })
+  };
+  handleUserFormOnClick = () => {
+    const {history} =this.props;
+    history.push("../Menu/RegisterationForm");
   }
 
   render() {
@@ -117,11 +123,13 @@ class Menu extends React.Component {
         <CssBaseline />
         <AppBar
           position="fixed"
-          style={{background: "rgb(0,255,0,0.1)", color : "gray"}}
+          style={{background: "#009688", color : "white"}}
           className={classNames(classes.appBar, {
             [classes.appBarShift]: open,
           })}
         >
+        < Grid container>
+        <Grid item md ={11}>
           <Toolbar disableGutters={!open}>
             <IconButton
               color="inherit"
@@ -135,6 +143,11 @@ class Menu extends React.Component {
               GoodWorkLabs
             </Typography>
           </Toolbar>
+          </Grid>
+          <Grid item md={1}>
+          <Typography style= {{ fontFamily: '"Apple Color Emoji"',paddingTop : "10px"}} variant ="h8" onClick ={this.onClickLogout}>Logout</Typography>
+          </Grid>
+</Grid>
         </AppBar>
 
 
@@ -154,7 +167,7 @@ class Menu extends React.Component {
           </div>
           <Divider />
           <List>
-            <ListItem>
+            <ListItem button onClick={()=>{this.handleUserFormOnClick()}}>
             <ListItemText inset primary="Create User" />
             </ListItem>
             <ListItem button onClick = {this.handleOnClick}>
@@ -190,11 +203,10 @@ class Menu extends React.Component {
           })}
         >
           <div className={classes.drawerHeader} />
-          <Typography paragraph>
-          </Typography>
-
         </main>
+
       </div>
+
     );
   }
 }
