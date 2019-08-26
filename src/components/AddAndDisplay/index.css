@@ -1,0 +1,9 @@
+.icon {
+  position: relative;
+  right: 16%;
+  top :20px;
+  text-align: right;
+}
+.table {
+  position: inherit;
+}
