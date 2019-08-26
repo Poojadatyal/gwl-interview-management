@@ -35,9 +35,9 @@ class Login extends React.Component{
     const {Username} =this.state;
     const {history}=this.props;
     const {password} = this.state;
-     // Username =="GWL" && password == "123" ?this.props.history.push('/Menu'): window.alert("Authentication Error");
+
      if(Username==="GWL" && password==="123"){
-         history.push('/Menu');
+         history.push('/user/menu');
      }
      else if(Username =="" && password==="")
      {

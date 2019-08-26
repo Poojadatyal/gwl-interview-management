@@ -24,32 +24,8 @@ const rolename=[
   }
 ];
 
-class RegisterationForm extends React.Component{
-
-  state = {
-    role : {
-      rolename : "Hr"
-    },
-    roles : [
-    {
-      rolename: ""
-    }
-  ]
-}
-handlerRoleChange=(e,role,rolename)=>{
-  console.log(e.target.value);
-  this.setState({
-    role:{
-      ...this.state.role,
-      rolename:e.target.value
-    }
-  });
-};
-render(){
-const {roles,role} =this.state;
-    return(
+const CreateUser = (role,roles,handleRoleChange) =>(
       <Grid container>
-
              <Grid item md ={12}  classes= {{root:"displaying"}} >
                <Card>
                  <CardContent>
@@ -94,7 +70,7 @@ const {roles,role} =this.state;
             id="outlined-select-currency"
             select
             label="Roles"
-            onChange={e=>this.handlerRoleChange(e,"role","rolename")}
+            onChange={e => handleRoleChange(e,"role","rolename")}
             value={role.rolename}
             helperText="Please select a role"
             margin="normal"
@@ -115,6 +91,4 @@ const {roles,role} =this.state;
              </Grid>
      </Grid>
     );
-
-  }
-}export default RegisterationForm;
+  export default CreateUser;
