@@ -3,16 +3,21 @@ import './index.css';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
+import {Card,CardContent,Toolbar,Typography,AppBar} from '@material-ui/core';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import { amber, green } from '@material-ui/core/colors';
 
 class Login extends React.Component{
   state={
-    Username: "",
+ Username: "",
     password: "",
-
-  }
+  open: false,
+  vertical: 'top',
+    horizontal: 'center',
+}
 
   handleChangename=(e)=>{
     this.setState({
@@ -25,86 +30,128 @@ class Login extends React.Component{
             password : e.target.value
     })
   };
+  handleClick = () => {
+      this.setState({ open: true });
+    };
+    handleClose = (event, reason) => {
+       if (reason === 'clickaway') {
+         return;
+       }
+
+       this.setState({ open: false });
+     };
+
 
   onClickValidate=()=>{
     const {Username} =this.state;
     const {history}=this.props;
     const {password} = this.state;
      // Username =="GWL" && password == "123" ?this.props.history.push('/Menu'): window.alert("Authentication Error");
-     if(Username=="GWL" && password=="123"){
+     if(Username==="GWL" && password==="123")
+     {
          history.push('/Menu');
      }
-     else{
-       alert("Authentication Failed !Try Again")
+     else if(Username ==="" && password==="")
+     {
+            /*  alert("Authentication Failed ! CREDENTIALS MISMATCH");*/
+              this.handleClick();
+      }
+     else {
+         this.handleClick();
      }
   };
 
   render(){
+    const { classes } = this.props;
 
     return(
-
-
-     <Grid container >
-                      <Grid container>
-                              <Grid item sm={1}>
-                              <img  class ="login_img"src ="Assets/Images/login1.png"></img>
-                              </Grid>
-
-                              <Grid item md={5}>
-                             <h2 class ="login_header"> GoodWorks Colloquio </h2>
-                              </Grid>
-
-                              <Grid item md={4}>
-                              </Grid>
-
-                              <Grid item md={2}>
-                              <Button> Help </Button>
-                                <Button > About Us </Button>
-                              </Grid>
-                      </Grid>
-
-
-                      <Grid container >
-                           <Paper class = "p" >
-
-                                   LOGIN
-                                <Grid container>
-                                <TextField
-                                id="standard-required test"
-                                label="Username"
-                                defaultValue=""
-                                margin="normal"
-                                onChange = {this.handleChangename}
-                                />
-                                </Grid>
-
-                                 <Grid container>
-                                <TextField
-                              id="standard-password-input"
-                              label="Password"
-                              type="password"
-                              autoComplete="current-password"
-                              margin="normal"
-                              onChange = {this.handleChangepassword}
-                              />
-                              </Grid>
-
-
-                              <Grid container>
-                         <Button variant="contained" color="primary" onClick ={this.onClickValidate}>
-                                  SUBMIT
-                             </Button>
-                            </Grid>
+      <React.Fragment>
+      <Grid container>
+      <Grid item md = {12}>
 
 
 
-                           </Paper>
-                      </Grid>
-     </Grid>
+      <AppBar position="static" style= {{background : "#009688"}}>
+
+             <Toolbar>
+               <Grid item md={12}>
+              <Typography style= {{ fontFamily: '"Apple Color Emoji"'}} variant ="h5">GoodWorks Colloquio</Typography>
+              </Grid>
+             </Toolbar>
+           </AppBar>
 
 
+
+      </Grid>
+      </Grid>
+      <Grid container style = {{marginTop: 10}}>
+       <Grid item md ={12} classes={{root : "displaying"}}>
+                 <Card classes ={{root: "card"}}>
+                 <CardContent>
+             <Typography>Login</Typography>
+                    <Typography  color="textSecondary" gutterBottom>
+                    <TextField
+                      id="outlined-name"
+                      label="Name"
+                      margin="normal"
+                    variant="outlined"
+                    onChange = {this.handleChangename}
+                       />
+             </Typography>
+
+             <Typography  color="textSecondary" gutterBottom>
+               <TextField
+                       id="outlined-password-input"
+                       label="Password"
+                       type="password"
+                       autoComplete="current-password"
+                       margin="normal"
+                       variant="outlined"
+                       onChange = {this.handleChangepassword}
+                     />
+               </Typography>
+
+                  <Typography> <Button variant="contained" style= {{background : "#009688", color :"white"}} onClick ={this.onClickValidate}>
+        SUBMIT
+      </Button></Typography>
+      </CardContent>
+      </Card>
+                  </Grid>
+               </Grid>
+
+               <Snackbar  
+                         anchorOrigin={{
+                           vertical: 'top',
+                           horizontal: 'center',
+
+                         }}
+                         open={this.state.open}
+                         autoHideDuration={3000}
+
+                         onClose={this.handleClose}
+                         ContentProps={{
+                           'aria-describedby': 'message-id',
+                         }}
+                         message={<span id="message-id">INVALID CREDENTIALS !!!</span>}
+                         action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+
+              onClick={this.handleClose}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+
+                       />
+
+
+</React.Fragment>
 
     );
   }
 }
+
 export default Login;

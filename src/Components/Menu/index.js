@@ -22,8 +22,11 @@ import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-
-const drawerWidth = 220;
+import CreateUser from '../Menu/CreateUser';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {Grid,Button} from '@material-ui/core';
+import Roles from './Roles';
+const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
@@ -36,6 +39,22 @@ const styles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing.unit * 3,
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 4,
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -62,13 +81,13 @@ const styles = theme => ({
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
-    padding: '0 8px',
+    paddingLeft: '80px' ,
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit ,
+    padding: theme.spacing.unit,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -90,7 +109,23 @@ const styles = theme => ({
 class Menu extends React.Component {
   state = {
     open: false,
-    subListOpen :false
+      role : {
+        rolename : "Hr"
+      },
+      roles : [
+      {
+        rolename: ""
+      }
+    ]
+}
+  handleRoleChange=(e,role,rolename)=>{
+    console.log(e.target.value);
+    this.setState({
+      role:{
+        ...this.state.role,
+        rolename:e.target.value
+      }
+    });
   };
 
   handleDrawerOpen = () => {
@@ -102,26 +137,36 @@ class Menu extends React.Component {
     this.setState({
       open: false });
   };
-  handleOnClick = () => {
-    this.setState({
-      subListOpen : !this.state.subListOpen
-    })
-  }
+  handleCreateUserOnClick = () => {
+    const {history} =this.props;
+    history.push("../user/menu/create-user");
+  };
+  handleRolesOnClick = () => {
+    const {history} =this.props;
+    history.push ("/user/menu/roles");
+  };
+  handleAddRoleOnClick = () => {
+    const {history} = this.props;
+
+  };
+
 
   render() {
     const { classes, theme } = this.props;
-    const { open,subListOpen } = this.state;
+    const { open,role,roles } = this.state;
 
     return (
       <div className={classes.root}>
-        <CssBaseline />
+    <CssBaseline />
         <AppBar
           position="fixed"
-          style={{background: "rgb(0,255,0,0.1)", color : "gray"}}
+          style={{background: "#009688", color : "white"}}
           className={classNames(classes.appBar, {
             [classes.appBarShift]: open,
           })}
         >
+        < Grid container className = "dashboardContent">
+        <Grid item md ={11}>
           <Toolbar disableGutters={!open}>
             <IconButton
               color="inherit"
@@ -135,8 +180,12 @@ class Menu extends React.Component {
               GoodWorkLabs
             </Typography>
           </Toolbar>
+          </Grid>
+          <Grid item md={1}>
+          <Typography style= {{ fontFamily: '"Apple Color Emoji"',paddingTop : "10px"}} variant ="h8" onClick ={this.onClickLogout}>Logout</Typography>
+          </Grid>
+</Grid>
         </AppBar>
-
 
         <Drawer
           className={classes.drawer}
@@ -154,27 +203,9 @@ class Menu extends React.Component {
           </div>
           <Divider />
           <List>
-            <ListItem>
-            <ListItemText inset primary="Create User" />
-            </ListItem>
-            <ListItem button onClick = {this.handleOnClick}>
+            <ListItem button onClick = {this.handleRolesOnClick}>
             <ListItemText inset primary="Roles" />
-            {this.state.subListOpen ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
-
-            <Collapse in={this.state.subListOpen} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemText inset primary="HR" />
-            </ListItem>
-            <ListItem button className={classes.nested}>
-              <ListItemText inset primary="Interviewer" />
-            </ListItem>
-            <ListItem button className={classes.nested}>
-              <ListItemText inset primary="Candidate" />
-            </ListItem>
-          </List>
-        </Collapse>
 
             <ListItem>
             <ListItemText inset primary="Actions" />
@@ -187,14 +218,15 @@ class Menu extends React.Component {
         <main
           className={classNames(classes.content, {
             [classes.contentShift]: open,
-          })}
-        >
+          })}>
           <div className={classes.drawerHeader} />
-          <Typography paragraph>
-          </Typography>
+          <Router>
+          <Route   path = "/user/menu/roles"  component = {Roles} />
 
+          </Router>
         </main>
       </div>
+
     );
   }
 }

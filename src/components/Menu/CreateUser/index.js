@@ -24,33 +24,8 @@ const rolename=[
   }
 ];
 
-class Registeration_Frm extends React.Component{
-
-  state = {
-    role : {
-      rolename : "Hr"
-    },
-    roles : [
-    {
-      rolename: ""
-    }
-  ]
-}
-handlerRoleChange=(e,role,rolename)=>{
-  console.log(e.target.value);
-  this.setState({
-    role:{
-      ...this.state.role,
-      rolename:e.target.value
-    }
-  });
-};
-render(){
-const {roles,role} =this.state;
-    return(
-
+const CreateUser = (role,roles,handleRoleChange) =>(
       <Grid container>
-
              <Grid item md ={12}  classes= {{root:"displaying"}} >
                <Card>
                  <CardContent>
@@ -64,9 +39,6 @@ const {roles,role} =this.state;
                 />
                    </Typography>
 
-
-
-
                    <Typography  color="textSecondary" gutterBottom>
                    <TextField
                      id="outlined-name"
@@ -75,7 +47,6 @@ const {roles,role} =this.state;
                     variant="outlined"
                   />
                      </Typography>
-
                      <Typography  color="textSecondary" gutterBottom>
                      <TextField
                        id="outlined-name"
@@ -84,8 +55,6 @@ const {roles,role} =this.state;
                       variant="outlined"
                     />
                        </Typography>
-
-
                      <Typography  color="textSecondary" gutterBottom>
                        <TextField
                                id="outlined-password-input"
@@ -96,13 +65,12 @@ const {roles,role} =this.state;
                                variant="outlined"
                              />
                        </Typography>
-
                 <Typography>
                 <TextField
             id="outlined-select-currency"
             select
             label="Roles"
-            onChange={e=>this.handlerRoleChange(e,"role","rolename")}
+            onChange={e => handleRoleChange(e,"role","rolename")}
             value={role.rolename}
             helperText="Please select a role"
             margin="normal"
@@ -115,7 +83,6 @@ const {roles,role} =this.state;
             ))}
           </TextField>
                        </Typography>
-
                        <Typography>
                 <Button color="primary" variant="contained">Create</Button>
                        </Typography>
@@ -123,11 +90,5 @@ const {roles,role} =this.state;
                   </Card>
              </Grid>
      </Grid>
-
-
-
-
     );
-
-  }
-}export default Registeration_Frm;
+  export default CreateUser;
