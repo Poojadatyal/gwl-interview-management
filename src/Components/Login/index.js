@@ -5,15 +5,19 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {Card,CardContent,Toolbar,Typography,AppBar} from '@material-ui/core';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
-
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import { amber, green } from '@material-ui/core/colors';
 
 class Login extends React.Component{
   state={
-    Username: "",
+ Username: "",
     password: "",
-
-  }
+  open: false,
+  vertical: 'top',
+    horizontal: 'center',
+}
 
   handleChangename=(e)=>{
     this.setState({
@@ -26,29 +30,40 @@ class Login extends React.Component{
             password : e.target.value
     })
   };
-  onClickLogout=(e)=>{
-    const {history} =this.props;
-    history.push("../Login");
-  };
+  handleClick = () => {
+      this.setState({ open: true });
+    };
+    handleClose = (event, reason) => {
+       if (reason === 'clickaway') {
+         return;
+       }
+
+       this.setState({ open: false });
+     };
+
 
   onClickValidate=()=>{
     const {Username} =this.state;
     const {history}=this.props;
     const {password} = this.state;
-
-     if(Username==="GWL" && password==="123"){
-         history.push('/user/menu');
-     }
-     else if(Username =="" && password==="")
+     // Username =="GWL" && password == "123" ?this.props.history.push('/Menu'): window.alert("Authentication Error");
+     if(Username==="GWL" && password==="123")
      {
-       alert("Authentication Failed !ENTER CREDENTIALS");
+         history.push('/Menu');
      }
+     else if(Username ==="" && password==="")
+     {
+            /*  alert("Authentication Failed ! CREDENTIALS MISMATCH");*/
+              this.handleClick();
+      }
      else {
-       alert("Authentication Failed ! CREDENTIALS MISMATCH");
+         this.handleClick();
      }
   };
 
   render(){
+    const { classes } = this.props;
+
     return(
       <React.Fragment>
       <Grid container>
@@ -104,6 +119,33 @@ class Login extends React.Component{
                   </Grid>
                </Grid>
 
+               <Snackbar  
+                         anchorOrigin={{
+                           vertical: 'top',
+                           horizontal: 'center',
+
+                         }}
+                         open={this.state.open}
+                         autoHideDuration={3000}
+
+                         onClose={this.handleClose}
+                         ContentProps={{
+                           'aria-describedby': 'message-id',
+                         }}
+                         message={<span id="message-id">INVALID CREDENTIALS !!!</span>}
+                         action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+
+              onClick={this.handleClose}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+
+                       />
 
 
 </React.Fragment>
@@ -111,4 +153,5 @@ class Login extends React.Component{
     );
   }
 }
+
 export default Login;
